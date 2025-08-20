@@ -7,13 +7,11 @@ public class SpeedBuffView : MonoBehaviour
 {
     private TempBuff _tempSpeedBuff;
     private PlayerController playerController;
-    private GameObject _speedBuff;
     private Player _player;
     private void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
-        _player = FindObjectOfType<Player>();
-        _speedBuff = gameObject;
+        _player = playerController.Player;
     }
 
     /// <summary>
@@ -29,7 +27,7 @@ public class SpeedBuffView : MonoBehaviour
 
             playerController.BuffAction.Invoke(_tempSpeedBuff);
             playerController.UpdateSpeedAction.Invoke();
-            Destroy(_speedBuff);
+
         }
     }
 }

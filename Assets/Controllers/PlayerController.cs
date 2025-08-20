@@ -31,19 +31,22 @@ public class PlayerController : MonoBehaviour
     private Camera _camera;
     private NavMeshAgent _agent;
     private Coroutine _damagePerSecondCoroutine;
+
+    public Player Player { get => _player;}
+
     void Start()
     {
         Init(new Player());
         _camera = Camera.main;
         _agent = GetComponent<NavMeshAgent>();
-        BuffAction += _player.AddBuff;
+        BuffAction += Player.AddBuff;
         UpdateSpeedAction += UpdateSpeed;
 
         InDamageZoneAction += StayInDamageZone;
         OutDamageZoneAction += ExitOutDamageZone;
 
-        _agent.speed = _player.Speed;
-        Debug.Log($"Игрок создан. Скорость: {_player.CurrentStats.Speed}");
+        _agent.speed = Player.Speed;
+        Debug.Log($"Игрок создан. Скорость: {Player.CurrentStats.Speed}");
     }
 
     void Update()
@@ -65,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateSpeed()
     {
-        _agent.speed = _player.Speed;
+        _agent.speed = Player.Speed;
     }
     private void StayInDamageZone(int damagePersecond)
     {
@@ -92,11 +95,11 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Damaging(int damagePerSecond)
     {
-        while (_player.Health > 0)
+        while (Player.Health > 0)
         {
-            _player.Health -= damagePerSecond;
+            Player.Health -= damagePerSecond;
 
-            Debug.Log("Health: " + _player.Health);
+            Debug.Log("Health: " + Player.Health);
 
             yield return new WaitForSeconds(1);
         }
